@@ -1,0 +1,94 @@
+//HREA_009
+			System.out.println("<연차 승인 내역 전체 목록>");
+			System.out.println("직원번호   직원이름   연차사용날짜   연차사용일수   연차승인자   연차승인일자");
+			System.out.println("연차 승인 내역을 개별조회하려면 1.연차승인내역 개별조회, 돌아가려면 2.근태관리메뉴를 선택하세요.");
+			System.out.println("   >> 선택 : ");
+			
+			
+			
+			
+			
+			//HREA_010
+			System.out.println("<연차 승인 내역 개별 조회>");
+			System.out.println("직원번호   직원이름   연차사용날짜   연차사용일수   연차승인자   연차승인일자");
+			System.out.println("수정하시려면 1.연차승인내역수정, 삭제하시려면 2.연차승인내역삭제, 돌아가시려면 3.근태관리메뉴를 선택하세요.");
+			System.out.println("   >> 선택 : ");
+			
+			
+			
+			//HADM_013
+			System.out.println("<연차 승인 내역 수정>");
+			System.out.println("수정할 내용을 입력해주세요.");
+			System.out.println("1.연차사용날짜");
+			System.out.println("2.연차사용일수");
+			System.out.println("3.연차승인자");
+			System.out.println("4.연차승인일자");
+			System.out.println("수정되었습니다. 근태 관리 메뉴로 돌아갑니다.");
+			System.out.println("수정에 실패했습니다. 연차 승인 내역 수정 메뉴로 돌아갑니다.");
+
+			
+			
+			
+			//HADM_014
+			System.out.println("<연차 승인 내역 삭제>");
+			System.out.println("연차 승인 내역을 삭제하시려면 Y를 입력하고, 돌아가려면 N을 입력하세요.");
+			System.out.println("   >> 입력 : ");
+			
+			
+			
+			//HREA_011
+			System.out.println("<급여조회 메뉴>입니다");
+			System.out.println("1.급여 정보 전체 목록");
+			System.out.println("2.급여 지급 내역 전체 목록");
+			System.out.println("3.메인메뉴");
+			System.out.println("   >> 선택 : ");
+			
+			
+			//HREA_012
+			System.out.println("<급여정보 전체 목록>");
+			System.out.println("사번  기본급(호봉)  은행명  예금주  계좌번호  직원명");
+			System.out.println("기본급을 기준으로 내림차순으로 보려면 1.내림차순 보기, 돌아가려면 2. 급여정보 개별 조회를 입력해주세요.");
+			System.out.println("   >> 입력 : ");
+
+			
+			//HREA_012
+			System.out.println("<급여정보 전체 목록-내림차순>");
+			System.out.println("사번  기본급(호봉)  은행명  예금주  계좌번호  직원명");
+			System.out.println("급여정보 개별조회는 1.급여정보 개별조회를 입력하고, 돌아가려면 2.급여 조회 메뉴를 입력하세요.");
+			System.out.println("   >> 입력 : ");
+
+			
+			
+			//HREA_013
+			System.out.println("<급여정보 개별조회>");
+			System.out.println("개별조회할 직원 번호를 입력하세요");
+			System.out.println("   >> 입력 : ");
+			System.out.println("사번 기본급(호봉)  은행명  예금주  계좌번호  직원명");
+			System.out.println("돌아가려면 1.급여조회 메뉴를 입력하세요.");
+			System.out.println("   >> 입력 : ");
+			
+			
+			//HREA_014
+			System.out.println("<급여지급내역 전체목록>");
+			System.out.println("사번  지급일시   기본급(호봉)   상여금   총급여");
+			System.out.println("기본급을 기준으로 내림차순으로 보려면 1.내림차순 보기, 개별 조회하려면 2.급여지급내역 개별조회, 돌아가려면 3.급여관리 메뉴를 입력해주세요.");
+			System.out.println("   >> 입력 : ");
+
+			
+			
+			
+			//HREA_014		
+			System.out.println("<급여지급내역 전체목록 - 내림차순>");
+			System.out.println("사번  지급일시   기본급(호봉)   상여금   총급여");
+			System.out.println("기본급을 기준으로 개별조회를 하려면 1.급여지급내역 개별조회, 돌아가려면 2.급여조회메뉴를 입력하세요.");
+			System.out.println("   >> 입력 : ");
+
+			
+			
+			//HREA_015
+			System.out.println("<급여지급내역 개별 조회>");
+			System.out.println("개별 조회할 직원 번호를 입력하세요.");
+			System.out.println("   >> 입력 : ");
+			System.out.println("사번  지급일시   기본급(호봉)   상여금   총급여");
+			System.out.println("돌아가려면 1.급여조회 메뉴를 입력하세요.");
+			System.out.println("   >> 입력 : ");
