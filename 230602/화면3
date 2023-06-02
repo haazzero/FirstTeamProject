@@ -1,0 +1,65 @@
+
+			//HADM_003
+			System.out.println("직원 정보 수정을 선택하셨습니다.");
+			System.out.println("직원 정보를 다시 입력해주세요");
+			System.out.println("사번 : ");
+			System.out.println("입사일자 : ");
+			System.out.println("부서 번호 : ");
+			System.out.println("직급 : ");
+			System.out.println("사원명 : ");
+			System.out.println("생년월일 : ");
+			System.out.println("연락처 : ");
+			System.out.println("성별 : ");
+			System.out.println("주소 : ");
+			System.out.println("정보가 수정되었습니다.");
+			System.out.println("직원관리 메뉴로 돌아갑니다.");//자동연결 메뉴불러오기
+			
+			
+			
+			//HADM_004
+			System.out.println("직원 정보 삭제를 선택하셨습니다.");
+			System.out.println("삭제하려면 Y를 그렇지 않으면 N을 입력해주세요");
+			System.out.println("   입력 : ");
+			System.out.println("삭제되었습니다. 직원관리 메뉴로 돌아갑니다.");//자동연결 메뉴불러오기
+			System.out.println("취소되었습니다. 직원관리 메뉴로 돌아갑니다.");//자동연결 메뉴불러오기
+			
+			
+			
+			
+			//HADM_005
+			System.out.println("<히스토리 등록> 선택하셨습니다");
+			System.out.println("등록하실 내용을 입력해주세요.");
+			System.out.println("   >> 입력 : ");
+			
+			
+			
+			//HREA_004
+			System.out.println("<히스토리 전체 목록 조회>");
+			System.out.println("사번   이름   변동사항");
+			System.out.println("개별직원의 히스토리를 조회하시려면 사번을 입력하고 그렇지 않으면 직원관리메뉴로 돌아갑니다");
+			System.out.println("   >> 입력 : ");
+			
+			
+			
+			
+			//HREA_005
+			System.out.println("<히스토리 상세목록 조회>");
+			System.out.println("사번   이름   변동사항");
+			System.out.println("1.수정 2. 삭제 3.직원관리 메뉴 선택하여 번호를 작성해주세요.");
+			System.out.println("   >> 선택 : ");
+			
+			
+			//HADM_006
+			System.out.println("<히스토리 상세목록 수정>");
+			System.out.println("수정할 문장을 입력해주세요.");
+			System.out.println("   >> 입력 : ");
+			System.out.println("수정되었습니다. 직원관리 메뉴로 돌아갑니다.");//자동연결
+			
+			
+			//HADM_007
+			System.out.println("<히스토리 상세목록 삭제>");
+			System.out.println("삭제하시려면 Y 취소하시려면 N를 입력해주세요.");
+			System.out.println("   >> 입력 : ");
+			System.out.println("삭제되었습니다. 직원관리 메뉴로 돌아갑니다.");//자동연결
+			System.out.println("취소되었습니다. 직원관리 메뉴로 돌아갑니다.");//자동연결
+			
