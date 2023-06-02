@@ -1,0 +1,94 @@
+//1.1.2
+			System.out.println("1. 급여 관리");
+			System.out.println("2. 시스템 종료");
+			System.out.println("   >> 선택 : ");
+
+			
+			//1.2
+			System.out.println("시스템을 종료하시겠습니까?");
+			System.out.println("Y 또는 N을 입력해주세요");
+			System.out.println("   >> 입력 : ");
+			
+			//2
+			System.out.println("직원 관리 메뉴입니다.");
+			System.out.println("1. 직원 정보 등록");
+			System.out.println("2. 직원 목록 조회");
+			System.out.println("3. 히스토리 등록");
+			System.out.println("4. 히스토리 조회");
+			System.out.println("5. 관리자 메뉴 돌아가기");
+			System.out.println("   >> 선택 : ");
+			
+			
+			
+			
+			
+			//2.1
+			System.out.println("직원 정보 등록 메뉴입니다");
+			System.out.println("등록할 직원의 정보를 입력해주세요");
+			System.out.println("사번 : ");
+			System.out.println("입사일자 : ");
+			System.out.println("부서 번호 : ");
+			System.out.println("직급 : ");
+			System.out.println("사원명 : ");
+			System.out.println("생년월일 : ");
+			System.out.println("연락처 : ");
+			System.out.println("성별 : ");
+			System.out.println("주소 : ");
+			System.out.println("입력하신 정보가 저장되었습니다.");
+			System.out.println("직원관리 메뉴로 돌아갑니다.");//자동연결 메뉴불러오기
+
+			
+			
+			//2.1-1
+			System.out.println("직원 정보 등록 메뉴입니다");
+			System.out.println("등록할 직원의 정보를 입력해주세요");
+			System.out.println("사번 : ");
+			System.out.println("입사일자 : ");
+			System.out.println("부서 번호 : ");
+			System.out.println("직급 : ");
+			System.out.println("사원명 : ");
+			System.out.println("생년월일 : ");
+			System.out.println("연락처 : ");
+			System.out.println("성별 : ");
+			System.out.println("주소 : ");
+			System.out.println("다시 입력해주세요.");
+
+			
+			
+			
+			
+			//2.2
+			System.out.println("직원 전체 목록을 선택하셨습니다.");
+			System.out.println("사번   입사일자  부서번호    직급     사원명    생년월일     연락처     성별    주소    ");
+			System.out.println("상세조회가 필요하면 아래 메뉴를 선택해주세요.");
+			System.out.println("1. 부서별 조회");
+			System.out.println("2. 직급별 조회");
+			System.out.println("3. 개별 조회");
+			System.out.println("4. 직원관리 메뉴");
+			System.out.println("   >> 선택 : ");
+			
+			
+			
+			
+			
+			//2.2.1
+			System.out.println("부서별 상세조회를 선택하셨습니다.");
+			System.out.println("1. 생산팀(D1)");
+			System.out.println("2. 인사팀(D2)");
+			System.out.println("3. 품질관팀(D3)");
+			System.out.println("4. 경리팀(D4)");
+			System.out.println("   >> 선택 : ");
+			System.out.println("사번   입사일자  부서번호    직급     사원명    생년월일     연락처     성별    주소    ");
+			System.out.println("직원관리메뉴로 돌아갑니다.");
+
+
+			
+			//2.2.2
+			System.out.println("직급별 상세조회를 선택하셨습니다.");
+			System.out.println("1. 사원");
+			System.out.println("2. 대리");
+			System.out.println("3. 과장");
+			System.out.println("4. 부장");
+			System.out.println("   >> 선택 : ");
+			System.out.println("사번   입사일자  부서번호    직급     사원명    생년월일     연락처     성별    주소    ");
+			System.out.println("직원관리메뉴로 돌아갑니다.");
