@@ -1,0 +1,103 @@
+--초기 로그인 계정
+INSERT INTO hr_system VALUES('admin', '1234');
+INSERT INTO hr_system VALUES('admin2', '5678');
+INSERT INTO hr_system VALUES('admin3', '9999');
+
+--부서
+insert into departments 
+values('D1','생산팀');
+
+INSERT INTO departments
+VALUES('D2','인사팀');
+
+INSERT INTO departments
+VALUES ('D3', '품질관리팀');
+
+INSERT INTO departments
+VALUES ('D4', '경리팀');
+
+--직급
+insert into position
+values(SEQ_POSITION_PNO.NEXTVAL,'부장');
+
+insert into position
+values(SEQ_POSITION_PNO.NEXTVAL,'과장');
+
+insert into position
+values(SEQ_POSITION_PNO.NEXTVAL,'대리');
+
+insert into position
+values(SEQ_POSITION_PNO.NEXTVAL,'사원');
+
+--호봉
+INSERT INTO SALARY_STEP 
+VALUES (1,'부장',4000000);
+
+INSERT INTO SALARY_STEP 
+VALUES (1,'과장',3500000);
+
+INSERT INTO SALARY_STEP 
+VALUES (1,'대리',3000000);
+
+INSERT INTO SALARY_STEP 
+VALUES (1,'사원',2500000);
+
+INSERT INTO SALARY_STEP 
+VALUES (2,'부장',4100000);
+
+INSERT INTO SALARY_STEP 
+VALUES (2,'과장',3600000);
+
+INSERT INTO SALARY_STEP 
+VALUES (2,'대리',3100000);
+
+INSERT INTO SALARY_STEP 
+VALUES (2,'사원',2600000);
+
+INSERT INTO SALARY_STEP 
+VALUES (3,'부장',4200000);
+
+INSERT INTO SALARY_STEP 
+VALUES (3,'과장',3700000);
+
+INSERT INTO SALARY_STEP 
+VALUES (3,'대리',3200000);
+
+INSERT INTO SALARY_STEP 
+VALUES (3,'사원',2700000);
+
+INSERT INTO SALARY_STEP 
+VALUES (4,'부장',4300000);
+
+INSERT INTO SALARY_STEP 
+VALUES (4,'과장',3800000);
+
+INSERT INTO SALARY_STEP 
+VALUES (4,'대리',3300000);
+
+INSERT INTO SALARY_STEP 
+VALUES (4,'사원',2800000);
+
+INSERT INTO SALARY_STEP 
+VALUES (5,'부장',4400000);
+
+INSERT INTO SALARY_STEP 
+VALUES (5,'과장',3900000);
+
+INSERT INTO SALARY_STEP 
+VALUES (5,'대리',3400000);
+
+INSERT INTO SALARY_STEP 
+VALUES (5,'사원',2900000);
+
+--직원정보
+INSERT INTO employees VALUES ('D1001', '부장', '생산팀', '김지영', '1990-05-15', '010-1234-5678', '여성', '2021-01-01');
+INSERT INTO employees VALUES ('D2001', '과장', '인사팀', '이민준', '1985-12-10', '010-9876-5432', '남성', '2020-03-12');
+INSERT INTO employees VALUES ('D3001', '대리', '품질관리팀', '박서연', '1992-09-25', '010-5555-8888', '여성', '2022-07-05');
+INSERT INTO employees VALUES ('D4001', '사원', '경리팀', '정민재', '1988-06-30', '010-4444-7777', '남성', '2023-02-18');
+INSERT INTO employees VALUES ('D1002', '사원', '생산팀', '김수진', '1995-03-05', '010-1111-2222', '여성', '2021-09-30');
+INSERT INTO employees VALUES ('D2002', '대리', '인사팀', '이지훈', '1997-11-20', '010-9999-8888', '남성', '2022-11-11');
+INSERT INTO employees VALUES ('D3002', '부장', '품질관리팀', '박하나', '1993-08-14', '010-7777-5555', '여성', '2020-06-22');
+INSERT INTO employees VALUES ('D4002', '사원', '경리팀', '김철수', '1991-04-01', '010-2222-3333', '남성', '2023-04-09');
+INSERT INTO employees VALUES ('D2003', '사원', '인사팀', '송미영', '1987-07-18', '010-6666-9999', '여성', '2022-01-03');
+INSERT INTO employees VALUES ('D1003', '대리', '생산팀', '이동하', '1994-02-09', '010-4444-2222', '남성', '2021-11-27');
