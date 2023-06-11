@@ -1,0 +1,148 @@
+package hr.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import hr.util.DBConn;
+import hr.vo.WorkVO;
+
+public class WorkDAO {
+
+	private String query;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	
+	public boolean workInsert(WorkVO wvo) {
+		query = "INSERT INTO work VALUES (?,?,?,?,?,?,?,?)";
+
+		try {	
+			pstmt = DBConn.getConnection().prepareStatement(query);	
+			pstmt.setString(1, wvo.getEmid());
+			pstmt.setInt(2, wvo.getCont());
+			pstmt.setInt(3, wvo.getLate());
+			pstmt.setInt(4, wvo.getEarly());
+			pstmt.setInt(5, wvo.getAbs());
+			pstmt.setInt(6, wvo.getAvAnn());
+			pstmt.setInt(7, wvo.getUsedAnn());
+			pstmt.setInt(8, wvo.getUnusedAnn());
+			
+			int result = pstmt.executeUpdate();	// 실행했을 때 1이 나와야 성공
+			if (result == 1) 	// 정상적으로 정보 등록 성공 시 true 반환
+				return true; 
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			DBConn.close(pstmt);	// con을 생성하지 않았기 때문에 pstmt만 닫음
+		}
+		return false;			// 그렇지 않으면 false 반환
+		
+	}
+	
+	public List<WorkVO> WorkSelect() {
+		List<WorkVO> wvoList = new ArrayList<>();
+		WorkVO wvo = null;
+		try {	
+			query = " SELECT employees.emid, name, late, early, abs, unused_ann FROM work, employees "
+					+ " WHERE work.emid = employees.emid ORDER BY work.emid ASC ";
+			pstmt = DBConn.getConnection().prepareStatement(query);	
+			rs = pstmt.executeQuery();
+			while(rs.next()) {			// 조회되는 레코드가 있다면 VO객체를 생성하여 해당 레코드 값을 저장
+				wvo = new WorkVO();		// 레코드를 저장할 객체
+				wvo.setEmid(rs.getString("emid"));
+				wvo.setName(rs.getString("name"));
+				wvo.setLate(rs.getInt("late"));
+				wvo.setEarly(rs.getInt("early"));
+				wvo.setAbs(rs.getInt("abs"));
+				wvo.setUnusedAnn(rs.getInt("unused_ann"));
+				
+				wvoList.add(wvo);		// List 객체에 mvo 데이터 추가
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			DBConn.close(rs, pstmt);	// 사용했던 rs, pstmt 순으로 닫음
+		}
+		return wvoList;
+		
+	}
+	
+	public WorkVO WorkSelect(String emid) {
+		WorkVO wvo = null;				// 지역변수는 초기화 필수
+		try {	
+			query = " SELECT work.emid, name, late, early, abs, av_ann, used_ann, unused_ann "
+					+ "	FROM WORK, employees "
+					+ "	WHERE work.emid = employees.emid "
+					+ "	AND work.emid = ? ";			
+			pstmt = DBConn.getConnection().prepareStatement(query);	
+			pstmt.setString(1, emid);									
+			rs = pstmt.executeQuery();								
+			
+			while(rs.next()) {			// 조회되는 레코드가 있다면 VO객체를 생성하여 해당 레코드 값을 저장
+				wvo = new WorkVO();		// 레코드를 저장할 객체
+				wvo.setEmid(rs.getString("emid"));
+				wvo.setName(rs.getString("name"));
+				wvo.setLate(rs.getInt("late"));
+				wvo.setEarly(rs.getInt("early"));
+				wvo.setAbs(rs.getInt("abs"));
+				wvo.setUnusedAnn(rs.getInt("unused_ann"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}	finally {
+			DBConn.close(rs, pstmt);	// 사용했던 rs, pstmt 순으로 닫음
+		}
+		return wvo;	
+		
+	}
+	
+	public boolean WorkUpdate(WorkVO wvo) {
+		query = " UPDATE work SET cont = ?, late = ?, early = ?, abs = ?, av_ann = ?, used_ann = ?, unused_ann = ? "
+				+ "	WHERE emid = ? ";
+		try {
+			pstmt = DBConn.getConnection().prepareStatement(query);	
+			pstmt.setInt(1, wvo.getCont());
+			pstmt.setInt(2, wvo.getLate());		// mvo의 getter에 들어간 데이터를 바인딩
+			pstmt.setInt(3, wvo.getEarly());
+			pstmt.setInt(4, wvo.getAbs());
+			pstmt.setInt(5, wvo.getAvAnn());
+			pstmt.setInt(6, wvo.getUsedAnn());
+			pstmt.setInt(7, wvo.getUnusedAnn());
+			pstmt.setString(8, wvo.getEmid());
+			
+			int result = pstmt.executeUpdate();	// 실행했을 때 1이 나와야 성공
+			if (result == 1) 	// 정상적으로 업데이트 시 true 반환
+				return true; 
+
+		} catch (SQLException e) {	// 예외 처리
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt);	// pstmt만 닫음
+		}
+		
+		return false;				// 실패 시 false 반환
+		
+	}
+	public boolean WorkDelete(String emid) {
+		query = "DELETE FROM work WHERE emid = ?";
+		try {	
+			pstmt = DBConn.getConnection().prepareStatement(query);	
+			pstmt.setString(1, emid);	
+			
+			int result = pstmt.executeUpdate();	// 실행했을 때 1이 나와야 성공
+			if (result == 1) 	// 정상적으로 삭제 성공 시 true 반환
+				return true; 
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt);	// pstmt 닫음
+		}
+		return false;			// 실패 시 false 반환
+		
+	}
+	
+}
