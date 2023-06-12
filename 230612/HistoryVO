@@ -1,0 +1,68 @@
+package hr.vo;
+
+import java.util.Date;
+
+public class HistoryVO {
+	private static String emid;		//	직원번호
+	private String name;		//	직원이름
+	private String dno;			//	부서번호
+	private String dname;		//  부서이름
+	private String position;	//	직급	
+	private static String leaveStart; 	//	시작날짜
+	private static String leaveFin;	//	종료날짜
+	private String remark;		//	구분
+//	private Date departStart;	//	부서시작날짜
+//	private Date departMove;	//	부서이동날짜
+//	private Date revom;			//	승진날짜	
+	
+	public static String getEmid() {
+		return emid;
+	}
+	public void setEmid(String emid) {
+		this.emid = emid;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getDno() {
+		return dno;
+	}
+	public void setDno(String dno) {
+		this.dno = dno;
+	}
+	public static String getLeaveStart() {
+		return leaveStart;
+	}
+	public void setLeaveStart(String leaveStart) {
+		this.leaveStart = leaveStart;
+	}
+	public static String getLeaveFin() {
+		return leaveFin;
+	}
+	public void setLeaveFin(String leaveFin) {
+		this.leaveFin = leaveFin;
+	}
+	public String getRemark() {
+		return remark;
+	}
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+	public String getDname() {
+		return dname;
+	}
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
+	public String getPosition() {
+		return position;
+	}
+	public void setPosition(String position) {
+		this.position = position;
+	}
+	
+	
+}
