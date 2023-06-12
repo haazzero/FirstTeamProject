@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import hr.vo.EmployeeVO;
-import memo.util.DBConn;
-import memo.vo.MemoVO;
+import hr.util.DBConn;
+import hr.vo.EmployeeVO;
 
 public class EmployeeDAO {
 
@@ -24,10 +24,10 @@ public class EmployeeDAO {
 		pstmt.setString(2, emvo.getName());
 		pstmt.setString(3, emvo.getPosition());
 		pstmt.setString(4, emvo.getDname());
-		pstmt.setDate(5, emvo.getBirth());
+		pstmt.setString(5, emvo.getBirth());
 		pstmt.setString(6, emvo.getTel());
 		pstmt.setString(7, emvo.getGen());
-		pstmt.setDate(8, emvo.getJoin());
+		pstmt.setString(8, emvo.getJoin());
 	
 		
 	}
@@ -203,7 +203,7 @@ public class EmployeeDAO {
 			pstmt.setString(3, emvo.getJoin());
 			
 			int result = pstmt.executeUpdate();
-			if(result == 1) {   //정상적으로 회원수정 성공 시 true 반환
+			if(result == 1) {   //정상적으로 수정 성공 시 true 반환
 				return true;
 			}
 			
@@ -231,7 +231,7 @@ public class EmployeeDAO {
 			pstmt.setInt(1, emid);
 			
 			int result = pstmt.executeUpdate();
-			if(result == 1) {   //정상적으로 메모삭제 성공 시 true 반환
+			if(result == 1) {   //정상적으로 삭제 성공 시 true 반환
 				return true;
 			}
 			
