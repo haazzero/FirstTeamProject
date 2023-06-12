@@ -1,0 +1,185 @@
+package hr.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.List;
+
+import hr.util.DBConn;
+import hr.vo.HistoryVO;
+
+public class HistoryDAO {
+
+	private String query;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	
+	//히스토리 등록
+	public boolean hisInsert(HistoryVO hivo) {
+		
+		try {
+			query = " INSERT INTO JOB_HISTORY VALUES(?) "; // queary를 먼저 선언하는 preparedStatement
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			pstmt.setString(1, hivo.getEmid());
+			pstmt.setString(2, hivo.getLeaveStart());
+			pstmt.setString(3, hivo.getLeaveFin());
+			pstmt.setString(4, hivo.getPosition());
+			pstmt.setString(5, hivo.getDname());
+			pstmt.setString(6, hivo.getRemark());
+			
+			
+			System.out.print(hivo.getEmid());
+			int result = pstmt.executeUpdate();
+			if (result == 1) { // 히스토리 등록 성공 시
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt);
+		}
+		return false;// 그렇지 않으면 false반환
+	}// insert end
+		
+	
+	
+	
+	//히스토리 전체목록
+	public List<HistoryVO> hisSelect() {
+		
+		List<HistoryVO> hivoList = new ArrayList<>();
+		HistoryVO hivo = null;
+		try {
+			// 1. select 쿼리문(테이블 전체를 조회)   직원번호 부서코드 구분 
+			query = " SELECT emid FROM job_History, dno FROM Departments "; // query를 먼저 선언하는 preparedStatement
+			// 2. 쿼리문을 실행할 prepared statement 객체
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			// 3. 쿼리문 바인딩할 것 없음
+			// 4. 쿼리를 실행
+			// next의 기능 : 1개의 다음 행으로 커서를 움직임
+			rs = pstmt.executeQuery(); // rs.next 시 다음 값이 있다면 true, 없다면 null 반환
+			// if는 1개 조회할 때, while은 전체조회 할 때,
+			while (rs.next()==true) { // 조회된 레코드들이 있다면
+				hivo = new HistoryVO(); // MemoVO객체를 생성, 아니면 생성X
+				hivo.setEmid(rs.getString("emid"));
+				hivo.setDno(rs.getString("dno")); // 해당 레코드 값을 저장
+
+				// List 객체에 추가=List에 저장
+				hivoList.add(hivo);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(rs, pstmt); // DBconn에 있는 close 메서드 호출
+		}
+		return hivoList;
+	}
+		
+		
+	
+	//히스토리 개별 조회     직원이름, 직원번호, 부서코드, 시작 날짜, 끝 날짜,구분
+	public List<HistoryVO> hisSelect(String mid) {
+		
+		 List<HistoryVO> hivoList = new ArrayList<>();
+		    try {
+		        query = "SELECT name, emid FROM employees, dno FROM Departments, leavestart, leavefin FROM Job_history ";
+		        pstmt = DBConn.getConnection().prepareStatement(query);
+		        rs = pstmt.executeQuery();
+
+		        while (rs.next()) {
+		            HistoryVO hivo = new HistoryVO();
+		            hivo.setName(rs.getString("name"));
+		            hivo.setEmid(rs.getString("emid"));
+		            hivo.setDno(rs.getString("dno"));
+		            hivo.setLeaveStart(rs.getString("leavestart"));
+		            hivo.setLeaveFin(rs.getString("leavefin"));
+
+		            hivoList.add(hivo);
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } finally {
+		        DBConn.close(rs, pstmt);
+	   }
+		    return hivoList;
+	}
+		
+		
+	
+	
+	//히스토리 상세 조회		   직원이름, 직원번호, 부서코드, 시작 날짜, 끝 날짜, 구분
+	public HistoryVO hisSelect(int mno) {
+		
+		HistoryVO hivo = null; // 변수의 초기화
+		try {
+			// 1. select 쿼리문     직원이름, 직원번호, 부서코드, 시작 날짜, 끝 날짜,구분
+			query = " SELECT name, emid FROM employees, dno FROM Departments, leavestart, leavefin FROM Job_history WHERE mid=? ORDER BY mid ASC "; // queary를 먼저 선언하는 preparedStatement
+			// 2. 쿼리문을 실행할 prepared statement 객체
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			// 3. id에 해당하는 값 하나를 바인딩
+			pstmt.setInt(1, mno);
+			// 4. 쿼리를 실행
+			// next의 기능 : 1개의 다음 행으로 커서를 움직임
+			rs = pstmt.executeQuery(); // rs.next 시 다음 값이 있다면 true, 없다면 null 반환
+			if (rs.next()==true) { // 조회된 레코드가 있다면
+				hivo = new HistoryVO(); // MemberVO객체를 생성, 아니면 생성X
+	            hivo.setName(rs.getString("name"));
+				hivo.setEmid(rs.getString("emid")); // 해당 레코드 값을 저장
+				hivo.setDno(rs.getString("dno")); // 해당 레코드 값을 저장
+				hivo.setLeaveStart(rs.getString("leavestart"));
+				hivo.setLeaveFin(rs.getString("leavefin")); // 해당 레코드 값을 저장
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(rs, pstmt); // DBconn에 있는 close 메서드 호출
+		}
+		return hivo;
+	}
+		
+		
+	
+	//히스토리 수정
+	public boolean hisUpdate(HistoryVO mid) {
+		
+		try {
+			query = " UPDATE Job_History SET leavestart = ?, leavefin = ?, remark = ? WHERE emid = ? ";
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			pstmt.setString(1, HistoryVO.getLeaveStart()); // leavestart = ? 를 mapping
+			pstmt.setString(2, HistoryVO.getLeaveFin());   // leavefin = ?
+			pstmt.setString(3, HistoryVO.getEmid()); // emid = ? 를 mapping
+			int result = pstmt.executeUpdate();
+			if (result == 1) { // 정상 수정 시 true 반환
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt); // pstmt 닫음
+		}
+		return false;// 그렇지 않으면 false반환
+	}// update end
+	
+	
+	
+	//히스토리 삭제
+	public boolean hisDelete(String mid) {
+		
+		try {
+			query = " DELETE job_history WHERE emid = ? ";
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			pstmt.setInt(1, emid); // emid = ? 를 mapping
+			int result = pstmt.executeUpdate();
+			if (result == 1) { 
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt); // pstmt 닫음
+		}
+		return false;// 그렇지 않으면 false반환
+	}// delete end
+
+		
+}
