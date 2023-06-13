@@ -1,0 +1,358 @@
+package hr.main;
+
+import java.util.List;
+import java.util.Scanner;
+
+import hr.dao.EmployeeDAO;
+import hr.dao.HistoryDAO;
+import hr.dao.ReviewDAO;
+import hr.dao.SalaryInfoDAO;
+import hr.dao.SalaryPaymentDAO;
+import hr.dao.WorkDAO;
+import hr.dao.YearDAO;
+import hr.vo.EmployeeVO;
+
+public class HrReadMain {
+
+	private Scanner sc;
+	public static String id;
+	private EmployeeDAO edao;
+	private HistoryDAO hdao;
+	private WorkDAO wdao;
+	private YearDAO ydao;
+	private SalaryInfoDAO sdao;
+	private SalaryPaymentDAO spdao;
+	private ReviewDAO rdao;
+	private List<EmployeeVO> list;
+	
+	
+	public HrReadMain() {
+		edao = new EmployeeDAO();
+		sc = new Scanner(System.in);
+	}
+	
+	
+	
+	public void pmReader() {
+		System.out.println("  ╔═══════════════════════════╗");  // 2칸씩
+		System.out.println("  ║            MENU           ║");
+		System.out.println("  ╚═══════════════════════════╝");
+		System.out.println();
+		System.out.println("  1. 직원 정보 조회   2. 근태 조회 ");
+		System.out.println("  3. 급여 조회        4. 인사고과 조회 ");
+		System.out.println("  5. 시스템 종료");
+		System.out.println();
+	    System.out.println("  💡 선택(숫자 입력) >> ");
+	    System.out.println();
+	    
+	    int input = sc.nextInt();
+	    HRSystemMain hrs = new HRSystemMain();
+	    
+	    switch (input) {
+	    case 1:
+	    	emView();
+	    	break;
+	    case 2:
+	    	workView();
+	    	break;
+	    case 3:
+	    	salMain();
+	    	break;
+	    case 4:
+	    	revView();
+	    	break;
+	    case 5:
+	    	hrs.sysEnd();
+	    	break;
+	    default:
+		    System.out.println("--------------------------------");
+		   	System.out.println("     1번 ~ 5번을 선택해주세요.  ");
+		   	System.out.println("--------------------------------");
+		   	System.out.println();
+	    pmReader();
+	    }
+	    
+	    
+	 
+		
+	}
+	
+	
+	
+	public void emView() {
+		System.out.println("  ╔═══════════════════════════╗");  // 2칸씩
+		System.out.println("  ║       직원 조회 메뉴          ║");
+		System.out.println("  ╚═══════════════════════════╝");
+		System.out.println();
+		System.out.println("  1. 직원 전체 목록  2. 히스토리 목록");
+		System.out.println("  3. 메인 메뉴                       ");  
+		System.out.println();
+		System.out.print("  💡 선택(숫자 입력) >> ");
+		System.out.println();
+		
+		int input = sc.nextInt();
+	    
+	    switch (input) {
+	    case 1:
+	    	emList();
+	    	break;
+	    case 2:
+	    	hisAllList();
+	    	break;
+	    case 3:
+	    	pmReader();
+	    	break;
+	    default:
+			System.out.println("--------------------------------");
+		   	System.out.println("     1번 ~ 3번을 선택해주세요.  ");
+		   	System.out.println("--------------------------------");
+		   	System.out.println();
+	    emView();
+	    }
+		
+	}
+	
+	
+	public void emList() {
+		System.out.println("  ╔═══════════════════════════╗");  // 2칸씩
+		System.out.println("  ║       직원 전체 목록          ║");
+		System.out.println("  ╚═══════════════════════════╝");
+		System.out.println();
+		List <EmployeeVO> list = edao.emSelect();   //EmployeeVO에 들어있는 객체들 중에서 select한 edao를 List화 하여 list라고 이름붙임.
+		
+		System.out.println("────────────────────────────────────────────────────────");
+        System.out.println("  직원번호   |   직원이름  |  성별  |   부서이름   | 직급 ");
+        System.out.println("────────────────────────────────────────────────────────");
+        if (list.size() > 0) {
+        	for(EmployeeVO evo: list) {   //EmployeeVO evo 는 list의 데이터타입임. list를 한줄씩 뿌리고, 이것을 반복!
+        		System.out.println(" " + evo.getEmid() + "|" + evo.getName() + "|" + evo.getGen() + "|" + evo.getDname() + "|" + evo.getPosition() );
+                System.out.println("────────────────────────────────────────────────────────");
+        	}
+        }
+        
+		System.out.println();
+		System.out.println(" < 상세조회가 필요하면 아래 메뉴를 선택해주세요. >");
+		System.out.println();
+		System.out.println(" 1. 부서별 조회  2. 직급별 조회");
+		System.out.println(" 3. 개별 조회    4. 직원조회 메뉴");
+	    System.out.println();
+	    System.out.print("  💡 선택(숫자 입력) >> ");
+	    System.out.println();
+	    
+	    int input = sc.nextInt();
+		
+	    switch (input) {
+	    case 1:
+	    	emList1();
+	    	break;
+	    case 2:
+	    	emList2();
+	    	break;
+	    case 3:
+	    	emDetail(id);
+	    	break;
+	    case 4:
+	    	emView();
+	    	break;
+	    default: System.out.println(" 1~4번을 입력하세요. ");
+	    emList();
+	    }
+	    }
+	    
+	    
+		public void emList1() {
+		System.out.println("  ╔═══════════════════════════╗");  // 2칸씩
+		System.out.println("  ║     부서별 직원 조회           ║");
+		System.out.println("  ╚═══════════════════════════╝");
+		System.out.println();
+		System.out.println("  1. 생산팀(D1)     2. 인사팀(D2)");
+		System.out.println("  3. 품질관리팀(D3)   4. 경리팀(D4) ");
+		System.out.println();
+		System.out.print("  💡 선택(숫자 입력) >> ");
+		
+	    String dn = "";
+	    int input = sc.nextInt();
+
+	    if(input == 1) {
+	       dn = "생산팀";
+	       list = edao.emSelectP(dn);
+	    } else if(input == 2) {
+	       dn = "인사팀";
+	       list = edao.emSelectP(dn);
+	    } else if(input == 3) {
+	       dn = "품질관리팀";
+	       list = edao.emSelectP(dn);
+	    } else if(input == 4) {
+	       dn = "경리팀";
+	       list = edao.emSelectP(dn);
+	    }
+	    
+
+        System.out.println();
+		System.out.println("─────────────────────────────────────────────────────");
+        System.out.println("  직원번호 |  직원이름  |   부서이름  |  직급 ");
+        System.out.println("─────────────────────────────────────────────────────");
+        if(list.size() > 0) {
+        	for(EmployeeVO evo: list) {
+        		System.out.println(" " + evo.getEmid() +   "|"  + evo.getName()  +  "|"  + evo.getDname() + "|" + evo.getPosition());
+        		System.out.println("─────────────────────────────────────────────────────");
+        	}
+        }
+        
+		System.out.println();
+        System.out.println();
+        System.out.println("  1. 개별 조회  2. 직원 조회 메뉴"); 
+        System.out.println();
+        System.out.print("  💡 선택(숫자 입력) >> ");
+        System.out.println();
+        input = sc.nextInt();
+        switch (input) {
+	    case 1:
+	    	emDetail(null);
+	    	break;
+	    case 2:
+	    	pmReader();
+	    	break;
+	    default: System.out.println(" 1~2번을 입력하세요. ");
+	    emList1();
+	    }
+		
+	}
+		
+		
+		
+		
+        
+		public void emList2() {
+		System.out.println("  ╔═══════════════════════════╗");  // 2칸씩
+		System.out.println("  ║      직급별 직원 조회      　　 ║");
+		System.out.println("  ╚═══════════════════════════╝");
+		System.out.println();
+		System.out.println("  1. 사원   2. 대리");
+		System.out.println("  3. 과장   4. 부장");
+		System.out.println();
+		System.out.print("  💡 선택(숫자 입력) >> ");
+		System.out.println();
+		
+        String gr;
+        int input = sc.nextInt();
+//        List<EmployeeVO> list;
+//        list = null;
+        
+        if(input == 1) {
+        	gr = "사원";
+ 	       list = edao.emSelectD(gr);
+ 	    } else if(input == 2) {
+ 	    	gr = "대리";
+ 	       list = edao.emSelectD(gr);
+ 	    } else if(input == 3) {
+ 	       gr = "과장";
+ 	       list = edao.emSelectD(gr);
+ 	    } else if(input == 4) {
+ 	       gr = "부장";
+ 	       list = edao.emSelectD(gr);
+ 	    }
+        
+//	        switch (input) {
+//		    case 1:
+//		    	gr = "사원";
+//		    	list = edao.emSelectP(gr);
+//		    	break;
+//		    case 2:
+//		    	gr = "대리";
+//		    	list = edao.emSelectP(gr);
+//		    	break;
+//		    case 3:
+//		    	gr = "과장";
+//		    	list = edao.emSelectP(gr);
+//		    	break;
+//		    case 4:
+//		    	gr = "부장";
+//		    	list = edao.emSelectP(gr);
+//		    	break;
+//		    default: System.out.println(" 1~4번을 입력하세요. ");
+//		    emList1();
+//		    }
+	        
+		System.out.println("────────────────────────────────────────────────────────");
+        System.out.println(" 직원번호 | 직원이름  |   부서이름  | 직급 ");
+        System.out.println("────────────────────────────────────────────────────────");
+        
+        if(list.size() > 0) {
+        	for(EmployeeVO evo: list) {
+                System.out.println("" + evo.getEmid() + "|" + evo.getName() + "|" + evo.getDname() + "|" + evo.getPosition() );
+                System.out.println("────────────────────────────────────────────────────────");
+        	}	
+        }
+        System.out.println();
+        System.out.println("  1. 개별 조회  2. 직원 조회 메뉴"); 
+        System.out.println();
+        System.out.print("  💡 선택(숫자 입력) >> ");
+        System.out.println();
+        
+		int qna = sc.nextInt();
+		switch (qna) {
+	    case 1:
+	    	emDetail(id);
+	    	break;
+	    case 2:
+	    	pmReader();
+	    	break;
+	    default: System.out.println(" 1~2번을 입력하세요. ");
+	    	emList1();
+	    }
+		
+	}
+		
+		
+		
+		
+		
+	
+	public void emDetail(String emid) {
+		System.out.println("  ╔═══════════════════════════╗");  // 2칸씩
+		System.out.println("  ║      직원 개별 조회           ║");
+		System.out.println("  ╚═══════════════════════════╝");
+		System.out.println();
+		System.out.println("  💡 직원번호를 입력하세요 >>  ");
+		
+		id = sc.next();
+		emid = id;
+		EmployeeVO evo = edao.emSelect(id);
+		System.out.println();
+
+		if(evo != null) {		
+		System.out.println("─────────────────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  직원번호 | 직원이름 | 성별 | 생년월일 | 연락처 | 입사일자 | 부서이름 | 직급  | 주소");
+        System.out.println("─────────────────────────────────────────────────────────────────────────────────────────────");
+        System.out.println("  " + evo.getEmid() + "|" + evo.getName() + "|" + evo.getGen() + "|" + evo.getBirth() + "|" + evo.getTel() + "|" + evo.getJoin() + "|" + evo.getDname() + "|" + evo.getPosition() + "|" + evo.getAddr() );
+        System.out.println("─────────────────────────────────────────────────────────────────────────────────────────────");
+
+        System.out.println("  1. 정보 수정  2. 정보 삭제  3. 직원 조회 메뉴");
+		System.out.println();
+		System.out.print("  💡 선택(숫자 입력) >> ");
+		System.out.println();
+		
+		int input = sc.nextInt();
+		HrAdminMain hra = new HrAdminMain();
+		
+		switch (input) {
+	    case 1:
+	    	hra.emModify(emid);
+	    	break;
+	    case 2:
+	    	hra.emRemove(emid);
+	    	break;
+	    case 3:
+	    	pmReader();
+	    	break;
+	    default: System.out.println(" 1~3번을 입력하세요. ");
+	    	emDetail(emid);
+		}
+		}
+		
+	}
+	
+	
+	
+	
