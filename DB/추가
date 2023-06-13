@@ -1,0 +1,5 @@
+ALTER TABLE employees ADD hobong number;
+ALTER TABLE employees ADD addr varchar2(50);
+
+ALTER TABLE employees MODIFY birth varchar2(30);
+ALTER TABLE employees MODIFY join varchar2(30);
