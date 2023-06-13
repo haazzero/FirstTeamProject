@@ -1,0 +1,68 @@
+	public void workModify() {	// 근태 기록 수정 메인 메서드
+		System.out.println("  ╔═══════════════════════════╗"); 
+		System.out.println("  ║       근태 기록 수정      ║");
+		System.out.println("  ╚═══════════════════════════╝");
+		System.out.println();
+		System.out.println("    < 수정할 내용의 번호를 입력해주세요 >  ");
+		System.out.println();
+		System.out.println("  1. 근속년수  2. 지각일수  		 3. 조퇴일수");
+		System.out.println("  4. 결근일수  5. 사용가능연차일수	 6. 사용연차일수");
+		System.out.println();
+		System.out.print("  💡 선택(숫자 입력) >> ");
+		
+		input = sc.nextInt();	// 공유변수 input을 사용하여 YearDAO에서도 input에 들어있는 숫자를 공유
+		switch (input) {
+		case 1:					// 1 입력 시 근속년수 수정
+			workModify1(HrReadMain.id);		// 조회 메뉴에서 사용된 공유변수 id (직원번호) 사용
+			break;
+		case 2:					// 2 입력 시 지각일수 수정
+			workModify2(HrReadMain.id);		
+			break;
+		case 3:					// 3 입력 시 조퇴일수 수정
+			workModify3(HrReadMain.id);	
+			break;
+		case 4:					// 4 입력 시 결근일수 수정
+			workModify4(HrReadMain.id);	
+			break;
+		case 5:					// 5 입력 시 사용가능연차일수 수정
+			workModify5(HrReadMain.id);	
+			break;
+		case 6:					// 6 입력 시 사용연차일수 수정
+			workModify6(HrReadMain.id);	
+			break;
+		default:				// 다른 값 입력 시 메시지 출력 후 다시 수정 메인 메서드 호출
+			System.out.println();
+			System.out.println("--------------------------------");
+		   	System.out.println("       1번 ~ 6번을 선택해주세요.     ");
+		   	System.out.println("--------------------------------");
+		   	System.out.println();
+			workModify();
+		} // switch-case end
+		
+	}
+	
+	public void workModify1(String emid) {	// 근태 기록 근속년수 수정 메서드
+		System.out.println("  ╔═══════════════════════════╗"); 
+		System.out.println("  ║       근태 기록 수정      ║");
+		System.out.println("  ╚═══════════════════════════╝");
+		System.out.println();
+		System.out.println("    < 수정할 내용을 입력해주세요 >  ");
+		System.out.println();
+		WorkVO wvo = wdao.WorkSelect(emid);		// 개별 조회한 데이터 wvo 객체에 담아 쓰기
+		System.out.print("  1.근속년수 >> ");
+			wvo.setCont(sc.nextInt());			// 수정할 내용 입력 받아서 setter로 받음
+		System.out.println();
+		
+		if(wdao.WorkUpdate(wvo)) {		// update 실행 후 true 반환 시 완료 메시지 출력 후 메인 메뉴로 돌아감
+			System.out.println("--------------------------------");
+			System.out.println("       근태 기록이 수정되었습니다.    ");
+			System.out.println("--------------------------------");
+			workManage();
+		} else {					// false 반환 시 실패 메시지 출력 후 수정 화면 다시 출력
+		   	System.out.println("--------------------------------");
+		   	System.out.println("         수정에 실패했습니다.       ");
+		   	System.out.println("--------------------------------");
+		   	workModify1(emid);
+		}	// if end
+		
+	}
