@@ -28,7 +28,7 @@ public class SalaryPaymentDAO {
 
 			while (rs.next()) {
 				ReviewVO rvo = new ReviewVO();
-				rvo.setGrade(rs.getString("grade").charAt(0)); // 인사평가등급 char 타입으로 가져옴
+				rvo.setGrade(rs.getString("grade")
 				rvo.setRemark(rs.getString("remark"));
 				rvo.setEmid(rs.getString("emid"));
 				reviewList.add(rvo);
