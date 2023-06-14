@@ -174,7 +174,7 @@ public class AccountAdminMain {
 	   	System.out.println("      수정에 실패했습니다.      ");
 	   	System.out.println("--------------------------------");
 		System.out.println();
-			salInfoModify(svo);  //salInfoWrite() 재출력
+			salInfoModify(svo);  //salInfoModify() 재출력
 		}	
 	}// salInfoModify end
 	
