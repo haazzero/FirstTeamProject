@@ -1,3 +1,13 @@
+/* view 권한 */
+GRANT CREATE VIEW TO hrdd
+
+/* Create view */
+CREATE OR REPLACE VIEW review_view AS
+SELECT grade, remark, review.emid
+FROM review
+JOIN salary_payment sp ON review.emid = sp.emid;
+
+
 /* Create Sequences */
 
 CREATE SEQUENCE SEQ_JOB_HISTORY_HIS_NO INCREMENT BY 1 START WITH 1;
