@@ -2,16 +2,9 @@ package hr.main;
 
 import java.util.List;
 import java.util.Scanner;
-
-import hr.dao.EmployeeDAO;
-import hr.dao.HistoryDAO;
 import hr.dao.ReviewDAO;
 import hr.dao.SalaryInfoDAO;
 import hr.dao.SalaryPaymentDAO;
-import hr.dao.WorkDAO;
-import hr.dao.YearDAO;
-import hr.util.DBConn;
-import hr.vo.EmployeeVO;
 import hr.vo.ReviewVO;
 import hr.vo.SalaryInfoVO;
 import hr.vo.SalaryPaymentVO;
@@ -21,14 +14,9 @@ public class AccountAdminMain {
 	private Scanner sc;
 	public static String id;
 	private int input;
-	private EmployeeDAO edao;
-	private HistoryDAO hdao;
-	private WorkDAO wdao;
-	private YearDAO ydao;
 	private SalaryInfoDAO sdao;
 	private SalaryPaymentDAO spdao;
 	private ReviewDAO rdao;
-	private EmployeeVO evo;
 
 	
 	 public AccountAdminMain() {
