@@ -34,23 +34,6 @@ public class HrReadMain {
 		spdao = new SalaryPaymentDAO();
 	}
 
-	public void pmReader() {
-		System.out.println("  ╔═══════════════════════════╗"); // 2칸씩
-		System.out.println("  ║            MENU           ║");
-		System.out.println("  ╚═══════════════════════════╝");
-		System.out.println();
-		System.out.println("  1. 직원 정보 조회   2. 근태 조회 ");
-		System.out.println("  3. 급여 조회        4. 인사고과 조회 ");
-		System.out.println("  5. 시스템 종료");
-		System.out.println();
-		System.out.println("  💡 선택(숫자 입력) >> ");
-		System.out.println();
-		System.out.println("--------------------------------");
-		System.out.println("     1번 ~ 5번을 선택해주세요.  ");
-		System.out.println("--------------------------------");
-		System.out.println();
-
-	}
 	// 급여 조회 메뉴
 	public void salMain() { // 급여 조회 메뉴
 		System.out.println("  ╔═══════════════════════════╗"); // 2칸씩
