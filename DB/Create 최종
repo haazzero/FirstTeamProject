@@ -285,7 +285,7 @@ INSERT INTO departments VALUES ('D1','생산팀');
 
 INSERT INTO departments VALUES ('D2','인사팀');
 
-INSERT INTO departments VALUES ('D3', '품질관리팀');
+INSERT INTO departments VALUES ('D3', '품질팀');
 
 INSERT INTO departments VALUES ('D4', '경리팀');
 
