@@ -1,0 +1,255 @@
+package hr.dao;
+
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import hr.vo.EmployeeVO;
+import hr.util.DBConn;
+import hr.vo.EmployeeVO;
+
+public class EmployeeDAO {
+
+	private String query;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	
+	//직원정보 등록
+	public boolean emInsert(EmployeeVO emvo) {
+		
+		try {
+			query = " INSERT INTO EMPLOYEES VALUES (?,?,?,?,?,?,?,?,?,?) ";
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			pstmt.setString(1, emvo.getEmid());
+			pstmt.setString(2, emvo.getPosition());
+			pstmt.setString(3, emvo.getDname());
+			pstmt.setString(4, emvo.getName());
+			pstmt.setString(5, emvo.getBirth());
+			pstmt.setString(6, emvo.getTel());
+			pstmt.setString(7, emvo.getGen());
+			pstmt.setString(8, emvo.getJoin());
+			pstmt.setInt(9, emvo.getHobong());
+			pstmt.setString(10, emvo.getAddr());
+				
+			int result = pstmt.executeUpdate();
+			if (result == 1) { // 정상 등록 성공 시
+				return true;
+			} 
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		DBConn.close(pstmt);
+		}
+	return false;// 그렇지 않으면 false반환
+	}// insert end
+		
+
+	
+	//직원정보 전체목록
+	public List<EmployeeVO> emSelect() {
+		List<EmployeeVO> emvoList = new ArrayList<>();    //리스트 객체 생성 //new를 했으니 null체크 불가!
+		EmployeeVO emvo = null;   //변수선언+초기화
+		try {
+			//전체 데이터 조회 쿼리문(select)
+			query = " SELECT emid, dname, position, name, gen FROM employees ORDER BY emid ASC ";
+			
+			//선언해둔 pstmt 객체 생성
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			
+			rs = pstmt.executeQuery();    //rs=resultSet //쿼리를 실행하는 것을 의미함. 테이블을 구현
+			
+			//EmployeeVO emvo; //변수선언 밖으로 빼기
+			while(rs.next() == true) {                    //조회된 레코드들이 있다면
+				emvo = new EmployeeVO();                  //EmployeeVO 객체를 생성하여,
+				emvo.setEmid(rs.getString("emid"));       //해당 레코드 값을 저장한 후
+				emvo.setDname(rs.getString("dname"));
+				emvo.setPosition(rs.getString("position"));
+				emvo.setName(rs.getString("name"));
+				emvo.setGen(rs.getString("gen"));
+				emvoList.add(emvo);				//List 객체에 추가
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt, rs);     //pstmt와 rs를 같이 닫아야 함
+		}
+	return emvoList;
+	}
+	
+
+
+	//직원정보 조회(부서별)
+	public List<EmployeeVO> emSelectP(String dname) {
+		List<EmployeeVO> emvoList = new ArrayList<>();    //리스트 객체 생성 //new를 했으니 null체크 불가!
+		EmployeeVO emvo = null;   //변수선언+초기화
+		
+		try {
+			//쿼리문 작성
+			query = " SELECT emid, name, dname, position FROM employees WHERE dname = ? ";
+			
+			//선언해둔 pstmt 객체 생성
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			
+			//부서이름에 해당하는 값 바인딩
+			pstmt.setString(1, dname);
+			
+			rs = pstmt.executeQuery();    //rs=resultSet //쿼리를 실행하는 것을 의미함. 테이블을 구현
+			
+			//EmployeeVO emvo; //변수선언 밖으로 빼기
+			while(rs.next() == true) {                    //조회된 레코드가 있다면
+				emvo = new EmployeeVO();                  //EmployeeVO 객체를 생성하여,
+				emvo.setEmid(rs.getString("emid"));
+				emvo.setName(rs.getString("name"));
+				emvo.setDname(rs.getString("dname"));
+				emvo.setPosition(rs.getString("position"));
+				emvoList.add(emvo); // emvoList에 emvo 객체 추가
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt, rs);     //pstmt와 rs를 같이 닫아야 함
+		}
+	return emvoList;
+	}
+	
+
+	
+	//직원정보 조회(직급별)
+	public List<EmployeeVO> emSelectD(String position) {
+		List<EmployeeVO> emvoList = new ArrayList<>();    //리스트 객체 생성 //new를 했으니 null체크 불가!
+		EmployeeVO emvo = null;   //변수선언+초기화
+		
+		try {
+			//직급 조회 쿼리문(select)
+			query = " SELECT emid, name, dname, position FROM employees WHERE position = ? ";
+			
+			//선언해둔 pstmt 객체 생성
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			
+			//직급이름에 해당하는 값 바인딩
+			pstmt.setString(1, position);
+			
+			rs = pstmt.executeQuery();    //rs=resultSet //쿼리를 실행하는 것을 의미함. 테이블을 구현
+			
+			//EmployeeVO emvo; //변수선언 밖으로 빼기
+			while(rs.next() == true) {                    //조회된 레코드가 있다면
+				emvo = new EmployeeVO();                  //EmployeeVO 객체를 생성하여,
+				emvo.setEmid(rs.getString("emid"));
+				emvo.setName(rs.getString("name"));
+				emvo.setDname(rs.getString("dname"));
+				emvo.setPosition(rs.getString("position"));
+				emvoList.add(emvo); // emvoList에 emvo 객체 추가
+
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt, rs);     //pstmt와 rs를 같이 닫아야 함
+		}
+	return emvoList;  //선언된 블럭 밖에서 사용하게 되어 변수 인식 못함		
+	}
+	
+	
+	//직원정보 조회(개별)
+	public EmployeeVO emSelect(String emid) {
+
+		EmployeeVO emvo = null;   //변수선언+초기화
+		try {
+			//사번 조회 쿼리문(select)
+			query = " SELECT * FROM employees WHERE emid=? ";
+			
+			//선언해둔 pstmt 객체 생성
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			
+			//사번에 해당하는 값 바인딩
+			pstmt.setString(1, emid);
+			
+			rs = pstmt.executeQuery();    //rs=resultSet //쿼리를 실행하는 것을 의미함. 테이블을 구현
+			
+			//EmployeeVO emvo; //변수선언 밖으로 빼기
+			while(rs.next() == true) {                    //조회된 레코드가 있다면
+				emvo = new EmployeeVO();                  //EmployeeVO 객체를 생성하여,
+				emvo.setJoin(rs.getString("join"));       //해당 레코드 값을 저장한 후
+				emvo.setDname(rs.getString("dname"));
+				emvo.setPosition(rs.getString("position"));
+				emvo.setEmid(rs.getString("emid"));
+				emvo.setName(rs.getString("name"));
+				emvo.setBirth(rs.getString("birth"));
+				emvo.setTel(rs.getString("tel"));
+				emvo.setGen(rs.getString("gen"));
+				emvo.setAddr(rs.getString("addr"));
+			
+			}			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt, rs);     //pstmt와 rs를 같이 닫아야 함
+		}
+	return emvo;
+	}
+
+
+
+
+	//직원정보 수정
+	public boolean emUpdate(EmployeeVO emvo) {
+
+		try {
+			//update 쿼리문
+			query = " UPDATE employees SET Position = ?, Dname = ?, Name = ?, Birth = ?, Tel = ?, Gen = ?, Join = ?, Hobong = ?, Addr = ? WHERE Emid = ?";
+			
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			pstmt.setString(1, emvo.getPosition());
+			pstmt.setString(2, emvo.getDname());
+			pstmt.setString(3, emvo.getName());
+			pstmt.setString(4, emvo.getBirth());
+			pstmt.setString(5, emvo.getTel());
+			pstmt.setString(6, emvo.getGen());
+			pstmt.setString(7, emvo.getJoin());
+			pstmt.setInt(8, emvo.getHobong());
+			pstmt.setString(9, emvo.getAddr());
+			pstmt.setString(10, emvo.getEmid());
+						
+			int result = pstmt.executeUpdate();
+			System.out.println(result);
+			if(result == 1) {   //정상적으로 수정 성공 시 true 반환
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt);    //pstmt를 닫는 메소드를 DBConn에서 호출
+		}
+	return false;	//그렇지 않으면 false 반환
+	}
+	
+
+
+	//직원정보 삭제
+	public boolean emDelete(String emid) {
+		
+		try {
+			//delete 쿼리문
+			query = " DELETE employees WHERE emid = ? ";
+			
+			pstmt = DBConn.getConnection().prepareStatement(query);
+			pstmt.setString(1, emid);
+			
+			int result = pstmt.executeUpdate();
+			if(result == 1) {   //정상적으로 삭제 성공 시 true 반환
+				return true;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBConn.close(pstmt);    //pstmt를 닫는 메소드를 DBConn에서 호출
+		}
+		
+	return false;		//그렇지 않으면 false 반환
+	}
+
+}  //EmployeeDAO end
