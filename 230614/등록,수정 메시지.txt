@@ -1,0 +1,82 @@
+System.out.println(" < 등록하려면 Y를 그렇지 않으면 N을 입력해주세요 >");
+		System.out.println();
+		System.out.print("  💡 입력 >> ");
+		String yes = sc.next();
+
+
+if(yes.equalsIgnoreCase("y"))
+
+
+System.out.println(" < 수정하려면 Y를 그렇지 않으면 N을 입력해주세요 >");
+			String yes = sc.next();
+
+
+
+실패했을때만 다시 메뉴로 호출
+
+}else if (yes.equalsIgnoreCase("n")) {
+				System.out.println("--------------------------------");
+				System.out.println("      등록이 취소되었습니다.    ");
+				System.out.println("--------------------------------");
+			
+		}else {
+			System.out.println("--------------------------------");
+			System.out.println("  다시 선택해주세요. ( Y | N )  ");
+			System.out.println("--------------------------------");
+			System.out.println();
+		}
+
+
+if(yes.equalsIgnoreCase("y")) {
+				if(rdao.revInsert(revo)) {    								 // ReviewDAO에 있는 revInsert메서드에 vo를 담아서 호출
+					System.out.println("----------------------------------");
+					System.out.println("      등록이 완료되었습니다.     ");
+					System.out.println("----------------------------------");
+					System.out.println();
+				}else {
+					System.out.println("--------------------------------");
+					System.out.println("       등록에 실패했습니다.     ");
+					System.out.println("--------------------------------");
+					System.out.println();
+				}
+			}else if (yes.equalsIgnoreCase("n")) {
+				System.out.println("--------------------------------");
+				System.out.println("      등록이 취소되었습니다.    ");
+				System.out.println("--------------------------------");
+			
+		}else {
+			System.out.println("--------------------------------");
+			System.out.println("  다시 선택해주세요. ( Y | N )  ");
+			System.out.println("--------------------------------");
+			System.out.println();
+		}
+
+System.out.println("--------------------------------");
+			   	System.out.println("    1번 ~ 5번을 선택해주세요.   ");
+			   	System.out.println("--------------------------------");
+
+System.out.println("----------------------------------");
+			System.out.println("       수정이 완료되었습니다.     ");
+			System.out.println("----------------------------------");
+			System.out.println();
+
+	System.out.println("--------------------------------");
+		   	System.out.println("      수정에 실패했습니다.      ");
+		   	System.out.println("--------------------------------");
+		   	System.out.println();
+
+등록이 완료되었습니다.
+등록에 실패했습니다. 
+등록이 취소되었습니다. 
+다시 선택해주세요. ( Y | N ) 
+
+
+
+if (hrsys.sysid.equals("admin")) {   // 인사팀 관리자
+
+
+}else if(hrsys.sysid.equals("admin2")) {   // 인사팀 열람자
+
+
+
+
