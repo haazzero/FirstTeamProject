@@ -347,9 +347,13 @@ public class HrReadMain {
 		    case 3:
 		    	pmReader();
 		    	break;
-		    default: System.out.println(" 1~3번을 입력하세요. ");
+		    default:
+		    	System.out.println(" 1~3번을 입력하세요. ");
 		    	emDetail(emid);
 			}
+		} else {
+			System.out.println("직원번호가 없습니다. 다시 입력해주세요.");
+			emDetail(emid);
 		}
 		
 	}
