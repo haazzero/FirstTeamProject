@@ -1,3 +1,11 @@
+--복붙하기 전에 해야할 일-
+--sys계정에서 view만드는 권한 줘야함--
+
+/* view 권한 */
+--GRANT CREATE VIEW TO hrdd--
+
+--이후 hrdd에서 아래 create 시작--
+
 /*Create USER*/
 CREATE USER hrdd IDENTIFIED BY 0000;
 GRANT RESOURCE, CREATE SESSION TO hrdd;
@@ -276,8 +284,6 @@ ALTER TABLE SALARY_STEP
    REFERENCES POSITION (POSITION)
 ;
 
-/* view 권한 */
---GRANT CREATE VIEW TO hrdd--
 
 /* Create view */
 CREATE OR REPLACE VIEW review_view AS
