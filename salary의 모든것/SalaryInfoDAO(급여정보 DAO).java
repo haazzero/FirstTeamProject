@@ -109,6 +109,7 @@ public class SalaryInfoDAO {
 
 			while (rs.next()) { // 조회되는 레코드가 있다면 VO객체를 생성하여 해당 레코드 값을 저장
 				svo = new SalaryInfoVO(); // 레코드를 저장할 객체
+				svo.setSno(rs.getInt("salinfo_no")); // 급여정보번호
 				svo.setEmid(rs.getString("emid")); // 직원번호
 				svo.setName(rs.getString("name")); // 직원이름
 				svo.setSal(rs.getInt("sal")); // 기본급
