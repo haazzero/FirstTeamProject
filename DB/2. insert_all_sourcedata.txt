@@ -41,7 +41,6 @@ INSERT INTO employees VALUES ('D2038', '신준호', '사원', '인사팀', '1988
 INSERT INTO employees VALUES ('D3039', '박영미', '부장', '품질팀', '1982-05-02', '010-2222-3333', '여', '2007-10-29', 3, '서울시 동작구');
 INSERT INTO employees VALUES ('D4040', '김태우', '사원', '경리팀', '1991-07-09', '010-7777-8888', '남', '2015-02-04', 3, '서울시 강남구');
 
-SELECT * FROM employees;
 
 --연차--
 INSERT INTO years VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL, 'D1001', '2022-05-11', 1, '김동휘', '2022-05-10');
