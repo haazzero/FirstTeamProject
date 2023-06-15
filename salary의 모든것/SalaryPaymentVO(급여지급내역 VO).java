@@ -9,10 +9,15 @@ public class SalaryPaymentVO {
 	private int bonus; // 상여금
 	private int total; // 총급여
 	private int spno; // 급여지급내역번호
-
+//
+//	// 총 급여 계산 메서드
+//	public int getTotal() {
+//		return sal + bonus;
+//	}
+	
 	// 총 급여 계산 메서드
 	public int getTotal() {
-		return sal + bonus;
+		return total;
 	}
 
 	public void setTotal(int total) {
