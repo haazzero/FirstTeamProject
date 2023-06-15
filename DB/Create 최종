@@ -1,11 +1,6 @@
-/* view 권한 */
-GRANT CREATE VIEW TO hrdd
-
-/* Create view */
-CREATE OR REPLACE VIEW review_view AS
-SELECT grade, remark, review.emid
-FROM review
-JOIN salary_payment sp ON review.emid = sp.emid;
+/*Create USER*/
+CREATE USER hrdd IDENTIFIED BY 0000;
+GRANT RESOURCE, CREATE SESSION TO hrdd;
 
 
 /* Create Sequences */
@@ -281,7 +276,18 @@ ALTER TABLE SALARY_STEP
    REFERENCES POSITION (POSITION)
 ;
 
+/* view 권한 */
+GRANT CREATE VIEW TO hrdd
 
+/* Create view */
+CREATE OR REPLACE VIEW review_view AS
+SELECT grade, remark, review.emid
+FROM review
+JOIN salary_payment sp ON review.emid = sp.emid;
+
+
+
+--마스터 테이블들--
 --초기 로그인 계정
 INSERT INTO hr_system VALUES('admin', '1234');
 INSERT INTO hr_system VALUES('admin2', '5678');
