@@ -56,7 +56,7 @@ CREATE TABLE EMPLOYEES
    -- 입사일자
    JOIN varchar2(30) NOT NULL,
    -- 호봉
-   HOBONG number NOT NULL,
+   SAL_GRADE number NOT NULL,
    -- 주소
    ADDR varchar2(50) ,
    PRIMARY KEY (EMID)
@@ -136,10 +136,10 @@ CREATE TABLE REVIEW
 -- 급여 정보
 CREATE TABLE SALARY_INFO
 (
-   -- 직원번호
-   EMID varchar2(10) NOT NULL,
    -- 급여정보번호
    SALINFO_NO number NOT NULL,
+   -- 직원번호
+   EMID varchar2(10) NOT NULL,
    -- 은행명
    BANK varchar2(30) NOT NULL,
    -- 예금주
@@ -271,8 +271,8 @@ ALTER TABLE YEARS
 
 
 ALTER TABLE EMPLOYEES
-   ADD FOREIGN KEY (POSITION)
-   REFERENCES POSITION (POSITION)
+	ADD FOREIGN KEY (SAL_GRADE, POSITION)
+	REFERENCES SALARY_STEP (SAL_GRADE, POSITION)
 ;
 
 
