@@ -1,0 +1,341 @@
+CREATE TABLE DEPARTMENTS
+(
+	DNO varchar2(10) NOT NULL,
+	DNAME varchar2(30) NOT NULL UNIQUE,
+	PRIMARY KEY (DNO)
+);
+
+
+CREATE TABLE EMPLOYEES
+(
+	EMID varchar2(10) NOT NULL,
+	NAME varchar2(30) NOT NULL,
+    POSITION varchar2(10) NOT NULL,
+	DNAME varchar2(30) NOT NULL,
+	BIRTH varchar2(30) NOT NULL,
+	TEL varchar2(30) NOT NULL,
+	GEN varchar2(10) NOT NULL,
+	JOIN varchar2(30) NOT NULL,
+    SAL_GRADE number NOT NULL,
+	ADDR varchar2(50),
+	PRIMARY KEY (EMID)
+);
+
+
+CREATE TABLE hr_system
+(
+	ID varchar2(30) NOT NULL,
+	PW varchar2(30) NOT NULL,
+	PRIMARY KEY (ID)
+);
+
+
+CREATE TABLE JOB_HISTORY
+(
+	HIS_NO number NOT NULL,
+	EMID varchar2(10) NOT NULL,
+    DNAME varchar2(30) NOT NULL,
+    POSITION varchar2(10) NOT NULL,
+	LEAVESTART varchar2(30) NOT NULL,
+	LEAVEFIN varchar2(30) NOT NULL,
+	REMARK varchar2(100) NOT NULL,
+	PRIMARY KEY (HIS_NO)
+);
+
+
+CREATE TABLE POSITION
+(
+	PNO number NOT NULL,
+	POSITION varchar2(10) NOT NULL UNIQUE,
+	PRIMARY KEY (PNO)
+);
+
+
+CREATE TABLE REVIEW
+(
+	REVIEW_NO number NOT NULL,
+	EMID varchar2(10) NOT NULL,
+	EVAL1 number NOT NULL,
+	EVAL2 number NOT NULL,
+	EVAL3 number NOT NULL,
+	EVAL4 number NOT NULL,
+	EVAL5 number NOT NULL,
+	EVAL_TOT number NOT NULL,
+	GRADE varchar2(10) NOT NULL,
+	REMARK varchar2(100) NOT NULL,
+	EVAL_DATE varchar2(30),
+	PRIMARY KEY (REVIEW_NO)
+);
+
+
+CREATE TABLE SALARY_INFO
+(
+	SALINFO_NO number NOT NULL,
+	EMID varchar2(10) NOT NULL,
+	BANK varchar2(30) NOT NULL,
+	DEPOSITOR varchar2(30) NOT NULL,
+	ACCOUNT varchar2(30) NOT NULL,
+	PRIMARY KEY (SALINFO_NO)
+);
+
+
+CREATE TABLE SALARY_PAYMENT
+(
+	SALPAY_NO number NOT NULL,
+	EMID varchar2(10) NOT NULL,
+	PAY_DATE varchar2(30) NOT NULL,
+	BONUS number NOT NULL,
+	TOTAL number NOT NULL,
+	PRIMARY KEY (SALPAY_NO)
+);
+
+
+CREATE TABLE SALARY_STEP
+(
+	SAL_GRADE number NOT NULL,
+	POSITION varchar2(10) NOT NULL,
+	SAL number NOT NULL,
+	PRIMARY KEY (SAL_GRADE, POSITION)
+);
+
+
+CREATE TABLE WORK
+(
+	EMID varchar2(10) NOT NULL,
+	CONT number NOT NULL,
+	LATE number NOT NULL,
+	EARLY number NOT NULL,
+	ABS number NOT NULL,
+	AV_ANN number NOT NULL,
+	USED_ANN number NOT NULL,
+	UNUSED_ANN number NOT NULL,
+	PRIMARY KEY (EMID)
+);
+
+
+CREATE TABLE YEARS
+(
+	YEARS_NO number NOT NULL,
+	EMID varchar2(10) NOT NULL,
+	YEARS_DATE varchar2(30) NOT NULL,
+	YEARS_CNT number NOT NULL,
+	APP varchar2(30) NOT NULL,
+	APP_DATE varchar2(30) NOT NULL,
+	PRIMARY KEY (YEARS_NO)
+);
+
+
+
+/* Create Foreign Keys */
+
+ALTER TABLE EMPLOYEES
+	ADD FOREIGN KEY (DNAME)
+	REFERENCES DEPARTMENTS (DNAME)
+;
+
+
+ALTER TABLE JOB_HISTORY
+	ADD FOREIGN KEY (DNAME)
+	REFERENCES DEPARTMENTS (DNAME)
+;
+
+
+ALTER TABLE JOB_HISTORY
+	ADD FOREIGN KEY (EMID)
+	REFERENCES EMPLOYEES (EMID)
+;
+
+
+ALTER TABLE REVIEW
+	ADD FOREIGN KEY (EMID)
+	REFERENCES EMPLOYEES (EMID)
+;
+
+
+ALTER TABLE SALARY_INFO
+	ADD FOREIGN KEY (EMID)
+	REFERENCES EMPLOYEES (EMID)
+;
+
+
+ALTER TABLE SALARY_PAYMENT
+	ADD FOREIGN KEY (EMID)
+	REFERENCES EMPLOYEES (EMID)
+;
+
+
+ALTER TABLE WORK
+	ADD FOREIGN KEY (EMID)
+	REFERENCES EMPLOYEES (EMID)
+;
+
+
+ALTER TABLE YEARS
+	ADD FOREIGN KEY (EMID)
+	REFERENCES EMPLOYEES (EMID)
+;
+
+
+ALTER TABLE JOB_HISTORY
+	ADD FOREIGN KEY (POSITION)
+	REFERENCES POSITION (POSITION)
+;
+
+
+ALTER TABLE SALARY_STEP
+	ADD FOREIGN KEY (POSITION)
+	REFERENCES POSITION (POSITION)
+;
+
+
+ALTER TABLE EMPLOYEES
+	ADD FOREIGN KEY (SAL_GRADE, POSITION)
+	REFERENCES SALARY_STEP (SAL_GRADE, POSITION)
+;
+
+INSERT INTO hr_system VALUES('admin', '1234');
+INSERT INTO hr_system VALUES('admin2', '5678');
+INSERT INTO hr_system VALUES('admin3', '9999');
+
+--부서
+INSERT INTO departments VALUES ('D1','생산팀');
+
+INSERT INTO departments VALUES ('D2','인사팀');
+
+INSERT INTO departments VALUES ('D3', '품질팀');
+
+INSERT INTO departments VALUES ('D4', '경리팀');
+
+--직급
+insert into position values(SEQ_POSITION_PNO.NEXTVAL,'부장');
+
+insert into position values(SEQ_POSITION_PNO.NEXTVAL,'과장');
+
+insert into position values(SEQ_POSITION_PNO.NEXTVAL,'대리');
+
+insert into position values(SEQ_POSITION_PNO.NEXTVAL,'사원');
+
+--호봉
+INSERT INTO SALARY_STEP VALUES (1,'부장',4000000);
+
+INSERT INTO SALARY_STEP VALUES (1,'과장',3500000);
+
+INSERT INTO SALARY_STEP VALUES (1,'대리',3000000);
+
+INSERT INTO SALARY_STEP VALUES (1,'사원',2500000);
+
+INSERT INTO SALARY_STEP VALUES (2,'부장',4100000);
+
+INSERT INTO SALARY_STEP VALUES (2,'과장',3600000);
+
+INSERT INTO SALARY_STEP VALUES (2,'대리',3100000);
+
+INSERT INTO SALARY_STEP VALUES (2,'사원',2600000);
+
+INSERT INTO SALARY_STEP VALUES (3,'부장',4200000);
+
+INSERT INTO SALARY_STEP VALUES (3,'과장',3700000);
+
+INSERT INTO SALARY_STEP VALUES (3,'대리',3200000);
+
+INSERT INTO SALARY_STEP VALUES (3,'사원',2700000);
+
+INSERT INTO SALARY_STEP VALUES (4,'부장',4300000);
+
+INSERT INTO SALARY_STEP VALUES (4,'과장',3800000);
+
+INSERT INTO SALARY_STEP VALUES (4,'대리',3300000);
+
+INSERT INTO SALARY_STEP VALUES (4,'사원',2800000);
+
+INSERT INTO SALARY_STEP VALUES (5,'부장',4400000);
+
+INSERT INTO SALARY_STEP VALUES (5,'과장',3900000);
+
+INSERT INTO SALARY_STEP VALUES (5,'대리',3400000);
+
+INSERT INTO SALARY_STEP VALUES (5,'사원',2900000);
+
+
+--create employees_data--
+
+INSERT INTO employees VALUES ('D1001', '김영희', '대리', '생산팀', '1990-05-10', '010-1234-5678', '여', '2020-01-15', 2, '서울시 강남구');
+INSERT INTO employees VALUES ('D2002', '이철수', '과장', '인사팀', '1985-09-20', '010-9876-5432', '남', '2015-07-01', 3, '서울시 서초구');
+INSERT INTO employees VALUES ('D3003', '박지영', '대리', '품질팀', '1992-12-03', '010-5555-1234', '여', '2018-03-12', 5, '서울시 종로구');
+INSERT INTO employees VALUES ('D4004', '정민수', '부장', '경리팀', '1980-11-15', '010-7890-4567', '남', '2005-11-25', 1, '서울시 중구');
+INSERT INTO employees VALUES ('D1005', '한영호', '대리', '생산팀', '1988-07-30', '010-2468-1357', '남', '2019-09-08', 4, '서울시 송파구');
+INSERT INTO employees VALUES ('D2006', '김지수', '사원', '인사팀', '1991-03-18', '010-2222-3333', '여', '2022-02-12', 3, '서울시 강북구');
+INSERT INTO employees VALUES ('D3007', '박철민', '대리', '품질팀', '1987-06-27', '010-7777-8888', '남', '2017-08-03', 5, '서울시 마포구');
+INSERT INTO employees VALUES ('D4008', '이혜진', '과장', '경리팀', '1983-12-01', '010-4444-5555', '여', '2014-05-22', 4, '서울시 강서구');
+INSERT INTO employees VALUES ('D1009', '홍성호', '대리', '생산팀', '1989-10-11', '010-6666-7777', '남', '2020-12-05', 3, '서울시 양천구');
+INSERT INTO employees VALUES ('D2010', '김미영', '사원', '인사팀', '1993-02-08', '010-9999-0000', '여', '2019-04-17', 4, '서울시 서대문구');
+INSERT INTO employees VALUES ('D3011', '장영식', '대리', '품질팀', '1986-07-12', '010-3333-4444', '남', '2016-09-30', 1, '서울시 동대문구');
+INSERT INTO employees VALUES ('D4012', '윤지훈', '부장', '경리팀', '1981-09-05', '010-8888-9999', '남', '2007-07-14', 2, '서울시 송파구');
+INSERT INTO employees VALUES ('D1013', '김은경', '사원', '생산팀', '1987-11-22', '010-1111-2222', '여', '2018-01-02', 5, '서울시 강남구');
+INSERT INTO employees VALUES ('D2014', '이철희', '과장', '인사팀', '1984-05-01', '010-5555-6666', '여', '2013-11-09', 2, '서울시 종로구');
+INSERT INTO employees VALUES ('D3015', '박민준', '대리', '품질팀', '1990-08-14', '010-2222-3333', '남', '2017-01-26', 1, '서울시 중구');
+INSERT INTO employees VALUES ('D4016', '정지영', '부장', '경리팀', '1979-04-17', '010-7777-8888', '여', '2004-12-10', 2, '서울시 서초구');
+INSERT INTO employees VALUES ('D1017', '한민지', '사원', '생산팀', '1988-11-30', '010-4444-5555', '여', '2021-03-08', 1, '서울시 종로구');
+INSERT INTO employees VALUES ('D2018', '김동욱', '대리', '인사팀', '1991-06-25', '010-9999-0000', '남', '2016-05-17', 5, '서울시 중구');
+INSERT INTO employees VALUES ('D3019', '신현우', '부장', '품질팀', '1983-03-12', '010-1111-2222', '남', '2008-11-01', 4, '서울시 강남구');
+INSERT INTO employees VALUES ('D4020', '이지민', '과장', '경리팀', '1980-07-28', '010-5555-6666', '여', '2011-09-14', 3, '서울시 서대문구');
+INSERT INTO employees VALUES ('D1021', '최민호', '대리', '생산팀', '1993-09-03', '010-2222-3333', '남', '2020-02-07', 2, '서울시 동대문구');
+INSERT INTO employees VALUES ('D2022', '김예은', '사원', '인사팀', '1986-01-25', '010-7777-8888', '여', '2018-04-21', 4, '서울시 송파구');
+INSERT INTO employees VALUES ('D3023', '박태현', '대리', '품질팀', '1982-04-08', '010-4444-5555', '남', '2015-06-29', 1, '서울시 강동구');
+INSERT INTO employees VALUES ('D4024', '이은지', '부장', '경리팀', '1978-10-21', '010-9999-0000', '여', '2003-08-15', 5, '서울시 서초구');
+INSERT INTO employees VALUES ('D1025', '장우진', '사원', '생산팀', '1989-01-07', '010-1111-2222', '남', '2019-12-28', 3, '서울시 종로구');
+INSERT INTO employees VALUES ('D2026', '송하은', '대리', '인사팀', '1992-07-16', '010-5555-6666', '여', '2017-11-03', 2, '서울시 강서구');
+INSERT INTO employees VALUES ('D3027', '김재민', '과장', '품질팀', '1988-12-24', '010-2222-3333', '남', '2014-02-18', 1, '서울시 중랑구');
+INSERT INTO employees VALUES ('D4028', '윤수진', '부장', '경리팀', '1979-08-11', '010-7777-8888', '여', '2005-04-06', 4, '서울시 송파구');
+INSERT INTO employees VALUES ('D1029', '이동현', '사원', '생산팀', '1987-03-27', '010-4444-5555', '남', '2020-06-19', 3, '서울시 강동구');
+INSERT INTO employees VALUES ('D2030', '박지후', '대리', '인사팀', '1991-11-14', '010-9999-0000', '남', '2016-01-23', 3, '서울시 중구');
+INSERT INTO employees VALUES ('D3031', '한유진', '사원', '품질팀', '1985-05-03', '010-1111-2222', '여', '2017-12-11', 1, '서울시 송파구');
+INSERT INTO employees VALUES ('D4032', '정윤호', '대리', '경리팀', '1982-08-18', '010-5555-6666', '남', '2015-10-28', 2, '서울시 동대문구');
+INSERT INTO employees VALUES ('D1033', '김지민', '부장', '생산팀', '1977-02-09', '010-2222-3333', '여', '2002-06-12', 5, '서울시 강남구');
+INSERT INTO employees VALUES ('D2034', '이성민', '사원', '인사팀', '1990-09-26', '010-7777-8888', '남', '2020-11-02', 2, '서울시 서초구');
+INSERT INTO employees VALUES ('D3035', '박서연', '대리', '품질팀', '1986-12-11', '010-4444-5555', '여', '2014-01-20', 1, '서울시 중랑구');
+INSERT INTO employees VALUES ('D4036', '김재원', '과장', '경리팀', '1983-06-24', '010-9999-0000', '남', '2009-03-18', 3, '서울시 강북구');
+INSERT INTO employees VALUES ('D1037', '이유진', '대리', '생산팀', '1993-08-05', '010-1111-2222', '여', '2018-09-27', 2, '서울시 서대문구');
+INSERT INTO employees VALUES ('D2038', '신준호', '사원', '인사팀', '1988-11-19', '010-5555-6666', '남', '2016-03-15', 4, '서울시 송파구');
+INSERT INTO employees VALUES ('D3039', '박영미', '부장', '품질팀', '1982-05-02', '010-2222-3333', '여', '2007-10-29', 3, '서울시 동작구');
+INSERT INTO employees VALUES ('D4040', '김태우', '사원', '경리팀', '1991-07-09', '010-7777-8888', '남', '2015-02-04', 3, '서울시 강남구');
+
+
+--연차--
+INSERT INTO years VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL, 'D1001', '2022-05-11', 1, '김동휘', '2022-05-10');
+INSERT INTO years VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL, 'D1001', '2023-01-10', 1, '김동휘', '2022-01-07');
+INSERT INTO years VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL, 'D2002', '2023-04-25', 1, '김동휘', '2023-04-21');
+INSERT INTO years VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL, 'D3003', '2022-06-26', 1, '김동휘', '2022-06-20');
+INSERT INTO years VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL, 'D3003', '2022-06-27', 1, '김동휘', '2022-06-20');
+
+--인사--
+INSERT INTO review VALUES(SEQ_REVIEW_REVIEW_NO.NEXTVAL, 'D1001', 17, 12, 15, 16, 14, 74, 'C', '임금 5% 보너스', '2023-01-05');
+INSERT INTO review VALUES(SEQ_REVIEW_REVIEW_NO.NEXTVAL, 'D2002', 14, 16, 18, 19, 15, 82, 'B', '임금 15% 보너스', '2023-01-05');
+INSERT INTO review VALUES(SEQ_REVIEW_REVIEW_NO.NEXTVAL, 'D3003', 18, 14, 17, 19, 11, 79, 'C', '임금 5% 보너스', '2022-01-03');
+INSERT INTO review VALUES(SEQ_REVIEW_REVIEW_NO.NEXTVAL, 'D3003', 20, 14, 12, 18, 15, 79, 'C', '임금 5% 보너스', '2023-01-05');
+INSERT INTO review VALUES(SEQ_REVIEW_REVIEW_NO.NEXTVAL, 'D4004', 18, 17, 17, 16, 19, 87, 'B', '임금 15% 보너스', '2023-01-05');
+
+--급여 정보--
+INSERT INTO salary_info VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL, 'D1001',  '신한', '김영희', '111-2222-3333');
+INSERT INTO salary_info VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL, 'D2002', '하나', '이철수', '222-3333-3133');
+INSERT INTO salary_info VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL, 'D3003', '국민', '박지영', '111-3333-4444');
+
+--급여 지급 내역-- 
+INSERT INTO salary_payment VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL,'D1001', '2018-09-27', 600, 5000000);
+INSERT INTO salary_payment VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL,'D1001', '2018-10-08', 700, 5700000);
+INSERT INTO salary_payment VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL,'D1001', '2020-01-12', 400, 5300000);
+INSERT INTO salary_payment VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL,'D2002', '2019-08-17', 300, 6000000);
+INSERT INTO salary_payment VALUES(SEQ_YEARS_YEARS_NO.NEXTVAL,'D3003', '2023-07-31', 10, 7000000);
+
+--히스토리--
+INSERT INTO job_history VALUES(SEQ_JOB_HISTORY_HIS_NO.NEXTVAL, 'D1001', '생산팀', '대리', '2021-04-11', '2023-05-01', '휴직');
+INSERT INTO job_history VALUES(SEQ_JOB_HISTORY_HIS_NO.NEXTVAL, 'D2002', '생산팀', '과장', '2018-11-23', '2022-04-17', '재직');
+INSERT INTO job_history VALUES(SEQ_JOB_HISTORY_HIS_NO.NEXTVAL, 'D2002', '인사팀', '과장', '2022-04-18', '2023-06-11', '재직');
+INSERT INTO job_history VALUES(SEQ_JOB_HISTORY_HIS_NO.NEXTVAL, 'D3003', '품질팀', '사원', '2018-03-12', '2021-05-10', '재직');
+INSERT INTO job_history VALUES(SEQ_JOB_HISTORY_HIS_NO.NEXTVAL, 'D3003', '품질팀', '대리', '2021-05-11', '2023-06-13', '재직');
+
+--근태--
+INSERT INTO work VALUES('D1001', 2, 2, 1, 4, 15, 4, 11);
+INSERT INTO work VALUES('D2002', 8, 5, 2, 1, 18, 10, 8);
+INSERT INTO work VALUES('D3003', 5, 3, 3, 2, 17, 8, 9);
+INSERT INTO work VALUES('D4004', 18, 4, 1, 4, 19, 17, 2);
