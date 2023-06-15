@@ -277,7 +277,7 @@ ALTER TABLE SALARY_STEP
 ;
 
 /* view 권한 */
-GRANT CREATE VIEW TO hrdd
+--GRANT CREATE VIEW TO hrdd--
 
 /* Create view */
 CREATE OR REPLACE VIEW review_view AS
