@@ -13,3 +13,5 @@ HR MANAGEMENT SYSTEM
 
 - WBS
 - https://docs.google.com/spreadsheets/d/1CReYbFtlLr2SfahtmcQnUI4R6nzaQsz3sC6Faeeju8g/edit#gid=2009186739
+
+- https://docs.google.com/document/d/1DwxlB4cur07HdeJFrjd0OIWvcCa1_sZGKG6D4-AaKKQ/mobilebasic
