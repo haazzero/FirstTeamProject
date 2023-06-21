@@ -8,6 +8,7 @@ DOUBLE DRAGON
 HR MANAGEMENT SYSTEM
 
 3조 김동휘, 박수진, 우선제, 정하영
+- 소개 PDF
 [DOUBLE DRAGON HR MANAGEMENT SYSTEM.pdf](https://github.com/haazzero/FirstTeamProject/files/11820178/DOUBLE.DRAGON.HR.MANAGEMENT.SYSTEM.pdf)
 
 - WBS
